@@ -1,0 +1,36 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#rides
+{
+	margin: auto;
+	width: 800px;
+	border: solid 1px #ccc;
+	background: #eee;
+	padding: 5px;
+	min-height: 200px;
+	overflow: scroll;
+		
+}
+
+#rides table {
+	border-collapse: collapse;
+}
+#rides td, th {
+	border: solid 1px #ccc;
+	margin:0;
+	padding:5px;
+	background: white;
+
+}
+
+
+#rides input {
+	margin: 0;
+}
