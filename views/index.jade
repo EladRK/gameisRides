@@ -3,40 +3,76 @@ extends layout
 block content
   h1 GameIs Unconference 2014 rides
 
+  #wrapper(ng-app='', ng-controller='ridesController')
+  
+    #rideDetails
+  
+    #rides
+  
+  
+      table
+        thead
+          tr
+            th Name
+            th From
+            th Number of free seats
+            th Phone #
+            th Email
+            th 
+        tbody
 
-  #rides(ng-app='', ng-controller='ridesController')
+          tr
+            td#fileringCell(colspan=6)
+              input(type='text', placeholder='Search by name or city', ng-model='filter')
+ 
+          tr(ng-repeat-start='ride in rides | filter:filter')
+            td 
+              a(href='#', ng-click='ride.isDetailsOpen=!ride.isDetailsOpen') {{ride.name}}
+            td {{ride.comingFrom}}
+            td {{ride.seats}}
+            td 
+              a(href='#', ng-click='showNumber(ride)') Show number
+            td 
+              a(href='#', ng-click='showEmail(ride)') Show email
+            td 
+              a(href='#', ng-click='deleteRide(ride)') Delete
+          tr(ng-repeat-end)
+            td(colspan=6, ng-show='ride.isDetailsOpen')
+              
+              table.passengerTable
+                tr(ng-repeat='passenger in ride.passengers')
+                  td {{passenger.name }}
+                  td {{passenger.phone }}
+                  td {{passenger.email }}
+                  td 
+                    a(href='#') delete
+                tr(class='addPassengerRow')
+                  td
+                    //{{ride.name}}
+                    input(type='text', placeholder='Name', ng-model='ride.newPassenger.name') 
+                  td
+                    input(type='text', placeholder='Phone', ng-model='ride.newPassenger.phone')
+                  td
+                    input(type='text', placeholder='Email', ng-model='ride.newPassenger.email')
+                  td
+                    button(ng-click='addPassenger(ride)') Save
 
 
-    table
-      thead
-        tr
-          th Name
-          th From
-          th Number of free seats
-          th Phone #
-          th 
-      tbody
-      form(ng-submit='addRide()')
-        tr
-          td 
-            input(type='text', placeholder='Name', ng-model='newRide.name')
-          td 
-            input(type='text', placeholder='Coming from', ng-model='newRide.comingFrom')
-          td 
-            input(type='text', placeholder='# of free seats', ng-model='newRide.seats')
-          td 
-            input(type='text', placeholder='Phone #', ng-model='newRide.phone')
-          td 
-            button(type='submit') Add
-        tr(ng-repeat='ride in rides')
-          td 
-            a(href='#') {{ride.name}}
-          td {{ride.comingFrom}}
-          td {{ride.seats}}
-          td 
-            a(href='#') Show number
-          td 
-            a(href='#', ng-click='deleteRide(ride)') Delete
+        form(ng-submit='addRide()')
+          tr#NewRideRow
+            td 
+              input(type='text', placeholder='Name', ng-model='newRide.name')
+            td 
+              input(type='text', placeholder='Coming from', ng-model='newRide.comingFrom')
+            td 
+              input(type='text', placeholder='# of free seats', ng-model='newRide.seats')
+            td 
+              input(type='text', placeholder='Phone #', ng-model='newRide.phone')
+            td 
+              input(type='text', placeholder='Email', ng-model='newRide.email')
+            td 
+              button(type='submit') Add
 
+  
 block scripts
   script(src='/javascripts/global.js') 

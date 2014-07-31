@@ -22,6 +22,30 @@ router.post('/addride', function(req, res) {
     });
 });
 
+router.post('/addPassenger', function(req, res) {
+    var db = req.db;
+
+    var rideId = req.body.rideId;
+    var newPassenger = req.body.newPassenger;
+
+	var ride = db.rides.find( { _id: rideId } );
+
+	if (!ride.passengers) ride.passengers = [];
+	ride.passengers.push(newPassenger);
+
+	db.rides.update(
+		{_id:rideId},
+		{ passengers : ride.passengers }
+		);
+
+//    db.collection('rides').insert(req.body, function(err, result){
+//        res.send(
+//            (err === null) ? { msg: '' } : { msg: err }
+//        );
+//    });
+});
+
+
 router.delete('/deleteride/:id', function(req, res) {
     var db = req.db;
     var rideToDelete = req.params.id;

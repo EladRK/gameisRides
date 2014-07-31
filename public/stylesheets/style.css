@@ -10,17 +10,38 @@ a {
 #rides
 {
 	margin: auto;
-	width: 800px;
-	border: solid 1px #ccc;
-	background: #eee;
 	padding: 5px;
-	min-height: 200px;
-	overflow: scroll;
 		
+}
+
+#rides td#fileringCell {
+
+}
+
+#rides table.passengerTable {
+	margin:20px; 
+}
+#rides tr.addPassengerRow td {
+	background-color: #eee;
+}
+
+#rides td#fileringCell input {
+	margin: auto; width:99%;
+	border:none;
+	font-size: 18px;
 }
 
 #rides table {
 	border-collapse: collapse;
+}
+
+#rides th {
+	background-color: #666;
+	color: white;
+}
+
+#rides tr#NewRideRow td {
+	background-color: #eee;
 }
 #rides td, th {
 	border: solid 1px #ccc;
