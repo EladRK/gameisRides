@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var ObjectId = require('mongodb').ObjectID;
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
@@ -28,21 +30,14 @@ router.post('/addPassenger', function(req, res) {
     var rideId = req.body.rideId;
     var newPassenger = req.body.newPassenger;
 
-	var ride = db.rides.find( { _id: rideId } );
+    db.collection('rides').update ({_id : ObjectId(rideId)}, {'$push': {passengers : newPassenger}}, function (err, result)
+	//db.collection('rides').find( { _id: ObjectId(rideId) }, function (err, result)
+	{
+		res.send({ok:'ok', rideId:rideId, newPassenger:newPassenger, res: result});
 
-	if (!ride.passengers) ride.passengers = [];
-	ride.passengers.push(newPassenger);
+	} );
 
-	db.rides.update(
-		{_id:rideId},
-		{ passengers : ride.passengers }
-		);
-
-//    db.collection('rides').insert(req.body, function(err, result){
-//        res.send(
-//            (err === null) ? { msg: '' } : { msg: err }
-//        );
-//    });
+    
 });
 
 
