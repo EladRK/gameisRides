@@ -58,6 +58,9 @@ function ridesController($scope, $http) {
 	
         $http({method: 'POST', url: '/addride', data: $scope.newRide}).
         success(function(data, status, headers, config) {
+            
+            if(!$scope.rides) $scope.rides = [];
+            
             $scope.rides.push($scope.newRide);
             $scope.newRide = {};
            
